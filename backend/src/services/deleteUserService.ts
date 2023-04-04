@@ -13,9 +13,7 @@ const deleteUserService = async (userIdParams: string, user: any) => {
     throw new Apperror("user not exist", 404);
   }
 
-  await userRepository.delete({id: userIdParams})
-
-
+  await userRepository.delete({ id: userIdParams });
 
   return {};
 };

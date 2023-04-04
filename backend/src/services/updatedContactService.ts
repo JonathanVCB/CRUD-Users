@@ -5,8 +5,7 @@ import { IUserUpdate } from "./../interfaces/users/index";
 
 const updatedContactService = async (
   userData: IUserUpdate,
-  contactIdParams: string,
-  user: any
+  contactIdParams: string
 ): Promise<object> => {
   const contactRepository = AppDataSource.getRepository(Contact);
 
@@ -14,11 +13,10 @@ const updatedContactService = async (
     id: contactIdParams,
   });
 
+  console.log(userData);
+
   if (!findContact) {
     throw new Apperror("user not exist", 404);
-  }
-  if (findContact.user !== user.id) {
-    throw new Apperror("Not Authorized", 401);
   }
 
   const updatedUser = contactRepository.create({

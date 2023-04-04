@@ -5,18 +5,20 @@ import { User } from "../entities/userEntitie";
 import "dotenv/config";
 import { Apperror } from "../errors/appError";
 
-const createSessionService = async ({
-  email,
-}: IUserLogin): Promise<string> => {
+const createSessionService = async ({ email }: IUserLogin): Promise<any> => {
   const userRepository = AppDataSource.getTreeRepository(User);
-  const user = await userRepository.findOneBy({
-    email: email,
+  const user = await userRepository.findOne({
+    where: {
+      email: email,
+    },
+    relations: {
+      contacts: true,
+    },
   });
 
   if (!user) {
     throw new Apperror("email is invalid", 403);
   }
-
 
   const token = Jwt.sign(
     {
@@ -29,7 +31,7 @@ const createSessionService = async ({
     }
   );
 
-  return token;
+  return { user, token };
 };
 
 export default createSessionService;

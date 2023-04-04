@@ -9,7 +9,6 @@ export interface IUser {
   name: string;
   email: string;
   createdAt: Date;
-
 }
 
 export interface IUserLogin {

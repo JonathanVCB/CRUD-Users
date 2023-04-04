@@ -12,13 +12,14 @@ export const createUserController = async (req: Request, res: Response) => {
   return res.status(201).json(newUser);
 };
 
-export const listUsersContactController = async (req: Request, res: Response) => {
+export const listUsersContactController = async (
+  req: Request,
+  res: Response
+) => {
   const users = await listUsersContactService(req.user);
 
   return res.status(200).json(users);
 };
-
-
 
 export const updatedUserController = async (req: Request, res: Response) => {
   const userData: IUserUpdate = req.body;

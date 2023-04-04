@@ -1,4 +1,4 @@
-import { IUserRequest } from "./../interfaces/users/index";
+import { IUserRequest, IUserUpdate } from "./../interfaces/users/index";
 import { Request, Response } from "express";
 import createContactService from "../services/createContactService";
 import updatedContactService from "../services/updatedContactService";
@@ -13,17 +13,15 @@ export const createContactController = async (req: Request, res: Response) => {
 };
 
 export const updateContactController = async (req: Request, res: Response) => {
-  const ContactData: IUserRequest = req.body;
+  const ContactData: IUserUpdate = req.body;
   const contactIdParams: string = req.params.id;
 
   const updatedContact = await updatedContactService(
     ContactData,
-    contactIdParams,
-    req.user
+    contactIdParams
   );
 
   return res.status(201).json(updatedContact);
-
 };
 
 export const deleteContactController = async (req: Request, res: Response) => {
@@ -33,4 +31,3 @@ export const deleteContactController = async (req: Request, res: Response) => {
 
   return res.status(204).json(userDelete);
 };
-

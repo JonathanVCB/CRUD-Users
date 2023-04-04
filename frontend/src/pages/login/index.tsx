@@ -1,43 +1,50 @@
-import { NextPage } from "next";
-import {
-  Center,
-  Input,
-  Button,
-  FormLabel,
-  FormControl,
-} from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { Form } from "../../components/Form/style";
+import { DivGoRegister, Main, SectionLogin } from "./style";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useContext } from "react";
+import { AuthContext, iLoginProps } from "../../contexts/UserContext";
 
-const login: NextPage = () => {
+const LoginPage = () => {
+  const { Login, isLogged } = useContext(AuthContext);
+
+  isLogged();
+
+  const formSchema = yup.object().shape({
+    email: yup.string().required("Email obrigatório").email("Email inválido"),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<iLoginProps>({
+    resolver: yupResolver(formSchema),
+  });
+
   return (
-    <Center width={"100vw"} height={"100vh"}>
-      <Center
-        display={"flex"}
-        w={"50%"}
-        h={"50%"}
-        flexDirection={"column"}
-        gap={"2rem"}
-        border={"1px solid black"}
-        borderRadius={"50px"}
-      >
+    <SectionLogin>
+      <Main>
         <h1>Login</h1>
-        <form>
-          <FormControl display={"flex"} flexDirection={"column"} gap={"1rem"}>
-            <FormLabel>Email</FormLabel>
-            <Input w={"450px"} placeholder="Insira seu email" />
-            <Button
-              width={"50%"}
-              m={"0 auto"}
-              type="submit"
-              colorScheme="teal"
-              variant="outline"
-            >
-              Submit
-            </Button>
-          </FormControl>
-        </form>
-      </Center>
-    </Center>
+        <Form onSubmit={handleSubmit(Login)}>
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="Digite seu email"
+            {...register("email")}
+          />
+          {errors.email && <span>{errors.email.message}</span>}
+
+          <button type="submit">Entrar</button>
+        </Form>
+        <DivGoRegister>
+          <Link to="/register">Cadastre-se</Link>
+        </DivGoRegister>
+      </Main>
+    </SectionLogin>
   );
 };
 
-export default login;
+export default LoginPage;

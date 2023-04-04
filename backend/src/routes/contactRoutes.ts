@@ -1,8 +1,12 @@
 import {
   createContactController,
   updateContactController,
+  deleteContactController,
 } from "./../controllers/contactController";
-import { userSerializer } from "./../serializers/userSerializers";
+import {
+  userSerializer,
+  userUpdateSerializer,
+} from "./../serializers/userSerializers";
 import { Router } from "express";
 import dataIsValidMiddleware from "../middlewares/dataIsValidMiddleware";
 import authMiddleware from "../middlewares/AuthMiddleware";
@@ -18,15 +22,11 @@ contactRoutes.post(
 
 contactRoutes.patch(
   "/:id",
-  dataIsValidMiddleware(userSerializer),
+  dataIsValidMiddleware(userUpdateSerializer),
   authMiddleware,
   updateContactController
 );
 
-contactRoutes.delete(
-  "/:id",
-  authMiddleware,
-  updateContactController
-);
+contactRoutes.delete("/:id", authMiddleware, deleteContactController);
 
 export default contactRoutes;
