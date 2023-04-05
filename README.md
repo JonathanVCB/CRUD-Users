@@ -20,30 +20,22 @@ O projeto esta configurado para rodar na porta 3001
 
 <br>
 
-# **ROTAS**
+# Frontend
 
-# Baseurl: "localhost:3001/"
-
-# POST - /users
-
-exemplo de request:
+Com a pasta frontend faça o mesmo, abra seu vscode(ou terminal) na pasta frontend, e instale as dependências utilziando o comando:
 
 ```
-{
-"email": "teste@mail.com",
-"name": "teste'",
-"telephone": "1295484654"
-}
+yarn install
 ```
 
-exemplo de response:
+<br>
+
+Feito isso, ainda dentro da pasta frontend, para rodar o projeto execute o comando
 
 ```
-{
-	"name": "teste'",
-	"email": "teste@mail.com",
-	"telephone": "1295484654",
-	"id": "ef4ad05e-ebf6-4ce1-b1a5-7f67eb294073",
-	"createdAt": "2023-04-05T12:50:05.842Z"
-}
+yarn start
 ```
+
+<br>
+
+Pronto, com todos os passos concluidos, seu servidor backend estara executando em localhost:3001, e sua aplicação web em localhost:3000
